@@ -16,7 +16,7 @@ import java.sql.*;
 public class ConexionBD {
     private static final String driver = "com.mysql.cj.jdbc.Driver";
     private static final String urlLocal = "jdbc:mysql://192.168.0.20:3306/test";
-    private static final String urlInternet = "jdbc:mysql://62.42.154.158:3306/test";
+    private static final String urlInternet = "jdbc:mysql://XXX.YYY.ZZZ.AAA:3306/test";
     private static final String usuario = "admin";
     private static final String password = "xxxxxxxx";
     
