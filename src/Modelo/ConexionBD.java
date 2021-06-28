@@ -16,10 +16,10 @@ import java.sql.*;
 public class ConexionBD {
     private static final String driver = "com.mysql.cj.jdbc.Driver";
     private static final String urlLocal = "jdbc:mysql://192.168.0.100:3306/test";
-    private static final String urlInternet = "jdbc:mysql://62.42.154.158:3306/test";
-    private static final String urlInternetDDNS = "jdbc:mysql://jrblanco.ddns.net:3306/test";
+    private static final String urlInternet = "jdbc:mysql://xx.xx.xx.xx:3306/test";
+    private static final String urlInternetDDNS = "jdbc:mysql://xxxxxxxxxx.ddns.net:3306/test";
     private static final String usuario = "admin";
-    private static final String password = "6979junx@76";
+    private static final String password = "xxxxxxxxxxxx";
     
     /**
      * Es protected, solo en el modulo se puede usar.Parametro: int net:
