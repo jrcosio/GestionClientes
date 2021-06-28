@@ -78,6 +78,61 @@ public class ClientesDAO {
         
     }
     
+    public Cliente readCliente(int ID){
+        
+        Cliente cliente=null;
+        Connection conexion = null;
+        
+        try {
+            conexion = ConexionBD.getConexion(0);
+            
+            if (conexion != null){
+                String sql = "SELECT * FROM clientes WHERE id=?";
+                
+                pst = conexion.prepareStatement(sql);
+                        
+                pst.setInt(1, ID);
+                
+                rs = pst.executeQuery();
+                
+                while (rs.next()) {
+                    cliente = new Cliente(); //Creamos un objeto cliente
+                    
+                    cliente.setId(rs.getInt("id"));
+                    cliente.setNombre(rs.getString("nombre"));
+                    cliente.setNif(rs.getString("nif"));
+                    cliente.setDireccion(rs.getString("direccion"));
+                    cliente.setLocalidad(rs.getString("localidad"));
+                    cliente.setCp(rs.getString("cp"));
+                    cliente.setProvincia(rs.getString("provincia"));
+                    cliente.setTelefono(rs.getString("telefono"));
+                    cliente.setEmail(rs.getString("email"));
+                    cliente.setObservaciones(rs.getString("observaciones"));
+                                        
+                }
+                
+               
+            }else{
+                System.out.println("Error en la conexión");
+            }
+        
+        }catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }finally{
+            try {
+                pst.close();
+                conexion.close();
+            } catch (SQLException ex) {
+                System.out.println("Error cerrando la conexión de readALL: " + ex.getMessage());
+            }
+        }
+       
+       
+        return cliente;
+        
+        
+    }
+    
     public boolean add(Cliente cliente){
         
         boolean estado = false;

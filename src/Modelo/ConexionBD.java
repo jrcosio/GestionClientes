@@ -15,10 +15,11 @@ import java.sql.*;
  */
 public class ConexionBD {
     private static final String driver = "com.mysql.cj.jdbc.Driver";
-    private static final String urlLocal = "jdbc:mysql://192.168.0.20:3306/test";
-    private static final String urlInternet = "jdbc:mysql://XXX.YYY.ZZZ.AAA:3306/test";
+    private static final String urlLocal = "jdbc:mysql://192.168.0.100:3306/test";
+    private static final String urlInternet = "jdbc:mysql://62.42.154.158:3306/test";
+    private static final String urlInternetDDNS = "jdbc:mysql://jrblanco.ddns.net:3306/test";
     private static final String usuario = "admin";
-    private static final String password = "xxxxxxxx";
+    private static final String password = "6979junx@76";
     
     /**
      * Es protected, solo en el modulo se puede usar.Parametro: int net:
@@ -27,6 +28,7 @@ public class ConexionBD {
      * @param net
      *       0 = Para red local
      *       1 = Desde Internet
+     *       2 = desde la ddns
      * @return 
      *       La conexion a la base de datos.
      */
@@ -37,8 +39,10 @@ public class ConexionBD {
             Class.forName(driver);
             if (net==0) {
                 conn = DriverManager.getConnection(urlLocal,usuario,password);
-            }else {
+            }else if (net==1) {
                 conn = DriverManager.getConnection(urlInternet,usuario,password);
+            }else {
+                conn = DriverManager.getConnection(urlInternetDDNS,usuario,password);
             }
             
         } catch (ClassNotFoundException ex) {

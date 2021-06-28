@@ -29,19 +29,7 @@ public class Main {
         
         //Controlador
         ControlClientes controladorClientes = new ControlClientes(modeloClientesDAO,viewPrincipal);
-        
-        viewPrincipal.setControlador(controladorClientes);
-        
-        viewPrincipal.setLocationRelativeTo(null);
-        viewPrincipal.setVisible(true);
-       
-        
-//        VistaPrincipal mainwin = new VistaPrincipal();
-//        mainwin.setTitle("::: Gestion Java 0.1 ::: Por JR Blanco :::");
-//        mainwin.setLocationRelativeTo(null);
-//        mainwin.setVisible(true);
-//        
-        
+ 
         
    
 

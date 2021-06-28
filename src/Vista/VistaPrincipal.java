@@ -59,6 +59,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
@@ -69,6 +70,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del cliente"));
 
         jLabel1.setText("Id");
+
+        txtId.setEditable(false);
 
         jLabel2.setText("Nombre");
 
@@ -192,6 +195,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         btnNuevo.setText("Nuevo");
 
+        btnSalir.setText("Salir");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -205,7 +210,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +222,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnAnadir, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -228,7 +236,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
             new String [] {
                 "Id", "Nombre", "NIF"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tablaClientes);
         if (tablaClientes.getColumnModel().getColumnCount() > 0) {
             tablaClientes.getColumnModel().getColumn(0).setMinWidth(35);
@@ -285,105 +301,116 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /*
-        Para mantener el encapsulamiento se tienen metodos getter y setter de los
-        widgets
-    */
-    public Integer getTxtId() { return Integer.parseInt(this.txtId.getText());}
-
-    public void setTxtId(String txt) { this.txtId = txtId;}
-    
-    public String getTxtNombre() { return this.txtNombre.getText();}
-    
-    public void setTxtNombre(String txt) { this.txtNombre.setText(txt);}
-    
-    public String getTxtNif() { return this.txtNIF.getText();}
-    
-    public void setTextNif(String txt){ this.txtNIF.setText(txt);}
-
-    public String getTxtCP() { return this.txtCP.getText();}
-
-    public void setTxtCP(String txt) { this.txtCP.setText(txt);}
-
-    public String getTxtDireccion() { return txtDireccion.getText();}
-
-    public void setTxtDireccion(String txt) { this.txtDireccion.setText(txt);}
-
-    public String getTxtEmail() { return txtEmail.getText();}
-
-    public void setTxtEmail(String txt) { this.txtEmail.setText(txt);}
-
-    public String getTxtLocalidad() { return txtLocalidad.getText();}
-
-    public void setTxtLocalidad(String txt) { this.txtLocalidad.setText(txt);}
-
-    public String getTxtProvincia() { return txtProvincia.getText();}
-
-    public void setTxtProvincia(String txt) { this.txtProvincia.setText(txt);}
-
-    public String getTxtTelefono() { return txtTelefono.getText();}
-
-    public void setTxtTelefono(String txt) { this.txtTelefono.setText(txt);}
-
-    public String getTxtObservaciones() { return txtObservaciones.getText();}
-
-    public void setTxtObservaciones(String txt) { this.txtObservaciones.setText(txt);}
     
     /*
-        Getter y Setter de la Tabla, estos set y get envian la tabla y la reciben...
+        Getter de los widgets (botones, text, tabla...)
     */
-    public JTable getTablaClientes(){ return this.tablaClientes;}
-    
-    public void setTablaClientes(JTable tabla){ this.tablaClientes = tabla;}
-    
-    
-    
-    public void setControlador(ControlClientes ctrl){
-        this.btnAnadir.addActionListener(ctrl);
-        this.btnGuardar.addActionListener(ctrl);
-        this.btnBorrar.addActionListener(ctrl);
-        this.btnNuevo.addActionListener(ctrl);
+    public JTable getTablaClientes(){ 
+        return tablaClientes;
     }
+
+    public JButton getBtnAnadir() {
+        return btnAnadir;
+    }
+
+    public JButton getBtnBorrar() {
+        return btnBorrar;
+    }
+
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
+
+    public JButton getBtnNuevo() {
+        return btnNuevo;
+    }
+
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
+
+    public JTextField getTxtId() {
+        return txtId;
+    }
+
+    public JTextField getTxtNIF() {
+        return txtNIF;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public JTextField getTxtDireccion() {
+        return txtDireccion;
+    }
+
+    public JTextField getTxtLocalidad() {
+        return txtLocalidad;
+    }
+
+    public JTextField getTxtCP() {
+        return txtCP;
+    }
+
+    public JTextField getTxtProvincia() {
+        return txtProvincia;
+    }
+
+    public JTextField getTxtTelefono() {
+        return txtTelefono;
+    }
+
+    public JTextField getTxtEmail() {
+        return txtEmail;
+    }
+
+    public JTextArea getTxtObservaciones() {
+        return txtObservaciones;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaPrincipal().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new VistaPrincipal().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

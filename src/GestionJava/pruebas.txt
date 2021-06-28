@@ -1,0 +1,74 @@
+     ClientesDAO model = new ClientesDAO();
+        
+        Cliente cliente = new Cliente();
+        
+        
+        
+//        
+//        cliente.setNombre("Josera Blanco Gutiérrez");
+//        cliente.setNif("72222111A");
+//        cliente.setDireccion("Avda La Industria H");
+//        cliente.setLocalidad("Maliaño");
+//        cliente.setCp("39600");
+//        cliente.setProvincia("Cantabria");
+//        cliente.setTelefono("");
+//        cliente.setEmail("jrblanco.c@gmail.com");
+//        cliente.setObservaciones("friki de anime y del futbol");
+//        
+//        if (model.add(cliente)) {
+//            System.out.println("Cliente añadido");
+//        }else{
+//            System.out.println("buaaa que cagada");
+//        }
+        
+//        ArrayList<Cliente> listaclientes;
+//        listaclientes=model.readAllClientes();
+//        
+//        //listaclientes.forEach(System.out::println);
+//        
+//        
+//        System.out.println("------ For Tipo 1 -------");
+//        for(int i=0; i<listaclientes.size();i++){
+//            System.out.println(listaclientes.get(i).getNombre());
+//        }
+//        
+//        System.out.println("------ For Tipo 2 -------");
+//        for(Cliente a: listaclientes){
+//            System.out.println(a.getNombre());
+//        }
+//        
+//        System.out.println("------ For Tipo 3 -------");
+//        listaclientes.forEach(Cliente -> {
+//            System.out.println(Cliente.getId() + " " + Cliente.getNombre());
+//            
+//        });
+// 
+//        System.out.println("------ For Tipo 4 -------");
+//        listaclientes.forEach(Cliente -> System.out.println(Cliente.getNombre()));
+        
+//
+//
+//        cliente.setId(1);
+//        cliente.setNombre("JR Blanco Gutiérrez");
+//        cliente.setNif("00000000X");
+//        cliente.setDireccion("General Dávila 264 Bajo Nº 2");
+//        cliente.setLocalidad("Santander");
+//        cliente.setCp("39006");
+//        cliente.setProvincia("Cantabria");
+//        cliente.setTelefono("666666666");
+//        cliente.setEmail("jr.cosio1@gmail.com");
+//        cliente.setObservaciones("es ADMIN");
+//        
+//        if (model.update(cliente)) {
+//            System.out.println("Cliente modificado");
+//        }else{
+//            System.out.println("buaaa qué cagada");
+//        }
+//
+
+//
+//          if (model.delete(5)) {
+//                System.out.println("Cliente borrado");
+//          }else{
+//                System.out.println("buaaa qué cagada");
+//          }
