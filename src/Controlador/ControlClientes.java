@@ -5,11 +5,16 @@
  */
 package Controlador;
 
+import GestionJava.Main;
 import Modelo.Cliente;
 import Modelo.ClientesDAO;
+import Modelo.ConexionPool;
+import Vista.SplashScreen;
 import Vista.VistaPrincipal;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,9 +27,13 @@ public class ControlClientes{
     /*
         Atributos, un objeto del modelo y de la vista
     */
-    private ClientesDAO modeloClientes;
-    private VistaPrincipal vistaClientes;
+    private final ClientesDAO modeloClientes;
+    private final VistaPrincipal vistaClientes;
     
+    
+    /*
+    * Constructor.
+    */
     public ControlClientes(ClientesDAO modelo, VistaPrincipal vista){
         this.modeloClientes = modelo;
         this.vistaClientes = vista;
@@ -38,24 +47,32 @@ public class ControlClientes{
         vistaClientes.getBtnNuevo().addActionListener((ActionEvent e) -> this.onBotonNuevo());
         
         vistaClientes.getBtnSalir().addActionListener((ActionEvent e) -> {
-            System.out.println("Adios....");
-            System.exit(0);
-            
+            System.exit(0);           
         });
                
         vistaClientes.getTablaClientes().addMouseListener((new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 onTabla();
             }
         }));
-                
+        
+        /*
+        *   SplassScreen.
+        */
+        SplashScreen splashScreen = new SplashScreen();
+        this.CargarDatosTabla();
+        
+        splashScreen.dispose(); //Eliminamos la pantalla de inicio.
+
+        
         vistaClientes.setTitle("::: Gestion Java 0.1 ::: Por JR Blanco :::");
         vistaClientes.setLocationRelativeTo(null);
         vistaClientes.setVisible(true); //Mostrar ventana
         
         
         //Carga los datos de la BD en la Tabla
-        this.CargarDatosTabla();
+        //this.CargarDatosTabla();
     }
     
     /*
@@ -91,8 +108,8 @@ public class ControlClientes{
     
     private  void onBotonGuardar(){
         Cliente clienteActual = new Cliente();
-       if (!vistaClientes.getTxtNombre().getText().equals("") && !vistaClientes.getTxtNIF().getText().equals("")){
-            clienteActual.setId(Integer.parseInt(vistaClientes.getTxtId().getText()));
+       if (!vistaClientes.getTxtNombre().getText().equals("") && !vistaClientes.getTxtNIF().getText().equals("") && !vistaClientes.getTxtId().getText().equals("") ){
+            clienteActual.setId(Integer.parseInt(vistaClientes.getTxtId().getText())); 
             clienteActual.setNombre(vistaClientes.getTxtNombre().getText());
             clienteActual.setNif(vistaClientes.getTxtNIF().getText());
             clienteActual.setDireccion(vistaClientes.getTxtDireccion().getText());
@@ -138,7 +155,7 @@ public class ControlClientes{
         
         int ID = Integer.parseInt((String)vistaClientes.getTablaClientes().getValueAt(fila, 0).toString());
         
-        System.out.println(ID);
+        System.out.println("Has pulsado sobre el " + ID);
         Cliente cliente = modeloClientes.readCliente(ID);
         
         vistaClientes.getTxtId().setText(""+cliente.getId());

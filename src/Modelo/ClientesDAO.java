@@ -15,22 +15,20 @@ import java.util.ArrayList;
  * 
  * Descripción: Es el Objeto de Acceso a los Datos (DAO = Data Access Object)
  */
-public class ClientesDAO {
-    
-    private PreparedStatement pst;
-            
-    private ResultSet rs;
+public class ClientesDAO{ //extends ConexionBD {
+
     
     public ArrayList<Cliente> readAllClientes(){
         
-        
+        PreparedStatement pst;
+        ResultSet rs;
         ArrayList<Cliente> listaClientes = new ArrayList<>();
         Cliente cliente;
+       
         Connection conexion = null;
         
         try {
-            conexion = ConexionBD.getConexion(0);
-            
+            conexion = ConexionPool.getInstancia().getConexion();  
             if (conexion != null){
                 String sql = "SELECT * FROM clientes WHERE 1";
                 
@@ -53,39 +51,34 @@ public class ClientesDAO {
                     cliente.setObservaciones(rs.getString("observaciones"));
                     
                     listaClientes.add(cliente);
-                    
                 }
-                
-               
             }else{
-                System.out.println("Error en la conexión");
+                System.out.println("Error en la conexión 0x0001");
             }
         
-        }catch(Exception ex) {
+        }catch(SQLException ex) {
             System.out.println(ex.getMessage());
         }finally{
             try {
-                pst.close();
-                conexion.close();
+                ConexionPool.getInstancia().cerrarConexion(conexion);
             } catch (SQLException ex) {
                 System.out.println("Error cerrando la conexión de readALL: " + ex.getMessage());
             }
         }
-       
-       
+        
         return listaClientes;
-        
-        
     }
     
     public Cliente readCliente(int ID){
-        
+        PreparedStatement pst;
+        ResultSet rs;
         Cliente cliente=null;
-        Connection conexion = null;
         
+
+        Connection conexion = null;
+                
         try {
-            conexion = ConexionBD.getConexion(0);
-            
+            conexion = ConexionPool.getInstancia().getConexion();
             if (conexion != null){
                 String sql = "SELECT * FROM clientes WHERE id=?";
                 
@@ -107,21 +100,17 @@ public class ClientesDAO {
                     cliente.setProvincia(rs.getString("provincia"));
                     cliente.setTelefono(rs.getString("telefono"));
                     cliente.setEmail(rs.getString("email"));
-                    cliente.setObservaciones(rs.getString("observaciones"));
-                                        
+                    cliente.setObservaciones(rs.getString("observaciones"));                       
                 }
-                
-               
             }else{
-                System.out.println("Error en la conexión");
+                System.out.println("Error en la conexión 0x0002");
             }
         
-        }catch(Exception ex) {
+        }catch(SQLException ex) {
             System.out.println(ex.getMessage());
         }finally{
             try {
-                pst.close();
-                conexion.close();
+                ConexionPool.getInstancia().cerrarConexion(conexion);
             } catch (SQLException ex) {
                 System.out.println("Error cerrando la conexión de readALL: " + ex.getMessage());
             }
@@ -135,11 +124,17 @@ public class ClientesDAO {
     
     public boolean add(Cliente cliente){
         
+        PreparedStatement pst;
         boolean estado = false;
-        Connection conexion = null;
+        //Connection conexion = getConexion();
         
+        Connection conexion = null;
         try {
-            conexion = ConexionBD.getConexion(0);
+            conexion = ConexionPool.getInstancia().getConexion();
+        } catch (SQLException ex) {
+            System.out.println("Error en la conexión");
+        }
+        try {
             
             if (conexion != null){
         
@@ -162,17 +157,16 @@ public class ClientesDAO {
                 estado = res > 0; // si el resultado de ejecutar la sentencia SQL es mayor que cero me devuelve true.
                
             }else{
-                System.out.println("Error en la conexión");
+                System.out.println("Error en la conexión 0x0003");
             }
         
         }catch(Exception ex) {
             System.out.println(ex.getMessage());
         }finally{
             try {
-                pst.close();
-                conexion.close();
+                ConexionPool.getInstancia().cerrarConexion(conexion);
             } catch (SQLException ex) {
-                System.out.println("Error cerrando la conexión de ADD: " + ex.getMessage());
+                System.out.println("Error cerrando la conexión de readALL: " + ex.getMessage());
             }
         }
         
@@ -181,11 +175,18 @@ public class ClientesDAO {
     
     public boolean update(Cliente cliente) {
         
+        PreparedStatement pst;
         boolean estado = false;
+//        Connection conexion = getConexion();
+
         Connection conexion = null;
-        
         try {
-            conexion = ConexionBD.getConexion(0);
+            conexion = ConexionPool.getInstancia().getConexion();
+        } catch (SQLException ex) {
+            System.out.println("Error en la conexión");
+        }
+        try {
+         
             
             if (conexion != null){
         
@@ -210,17 +211,16 @@ public class ClientesDAO {
                 estado = res > 0; // si el resultado de ejecutar la sentencia SQL es mayor que cero me devuelve true.
                
             }else{
-                System.out.println("Error en la conexión");
+                System.out.println("Error en la conexión 0x0004");
             }
         
         }catch(Exception ex) {
             System.out.println(ex.getMessage());
         }finally{
             try {
-                pst.close();
-                conexion.close();
+                ConexionPool.getInstancia().cerrarConexion(conexion);
             } catch (SQLException ex) {
-                System.out.println("Error Cerrando la base de datos en UPDATE");
+                System.out.println("Error cerrando la conexión de readALL: " + ex.getMessage());
             }
         }
         
@@ -229,12 +229,18 @@ public class ClientesDAO {
     }
     
     public boolean delete(int id){
-        
+        PreparedStatement pst;
         boolean estado = false;
+//        Connection conexion = getConexion();
         Connection conexion = null;
+        try {
+            conexion = ConexionPool.getInstancia().getConexion();
+        } catch (SQLException ex) {
+            System.out.println("Error en la conexión");
+        }
         
         try {
-            conexion = ConexionBD.getConexion(0);
+           
             
             if (conexion != null){
         
@@ -248,17 +254,16 @@ public class ClientesDAO {
                 estado = res > 0; // si el resultado de ejecutar la sentencia SQL es mayor que cero me devuelve true y todo fue correcto.
                
             }else{
-                System.out.println("Error en la conexión");
+                System.out.println("Error en la conexión 0x0005");
             }
         
         }catch(Exception ex) {
             System.out.println(ex.getMessage());
         }finally{
             try {
-                pst.close();
-                conexion.close();
+                ConexionPool.getInstancia().cerrarConexion(conexion);
             } catch (SQLException ex) {
-                System.out.println("Error Cerrando la base de datos en DELETE");
+                System.out.println("Error cerrando la conexión de readALL: " + ex.getMessage());
             }
         }
         

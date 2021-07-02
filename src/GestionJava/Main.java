@@ -8,7 +8,11 @@ package GestionJava;
 
 import Controlador.ControlClientes;
 import Modelo.ClientesDAO;
+import Modelo.ConexionPool;
+import Vista.SplashScreen;
 import Vista.VistaPrincipal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -21,6 +25,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Gestión Java 0.1");
         
+        
         //Modelo
         ClientesDAO modeloClientesDAO = new ClientesDAO();
         
@@ -29,8 +34,7 @@ public class Main {
         
         //Controlador
         ControlClientes controladorClientes = new ControlClientes(modeloClientesDAO,viewPrincipal);
- 
-        
+         
    
 
     }

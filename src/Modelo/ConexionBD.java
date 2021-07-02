@@ -6,6 +6,8 @@
 package Modelo;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -14,37 +16,25 @@ import java.sql.*;
  * @author jrblanco
  */
 public class ConexionBD {
-    private static final String driver = "com.mysql.cj.jdbc.Driver";
-    private static final String urlLocal = "jdbc:mysql://192.168.0.100:3306/test";
-    private static final String urlInternet = "jdbc:mysql://xx.xx.xx.xx:3306/test";
-    private static final String urlInternetDDNS = "jdbc:mysql://xxxxxxxxxx.ddns.net:3306/test";
-    private static final String usuario = "admin";
-    private static final String password = "xxxxxxxxxxxx";
+    private final String driver = "com.mysql.cj.jdbc.Driver";
+    private final String url = "jdbc:mysql://192.168.64.2:3306/test";
+    private final String usuario = "admin";
+    private final String password = "";
+    
+    private Connection conn = null;
+    
     
     /**
-     * Es protected, solo en el modulo se puede usar.Parametro: int net:
-     *
-     *
-     * @param net
-     *       0 = Para red local
-     *       1 = Desde Internet
-     *       2 = desde la ddns
      * @return 
      *       La conexion a la base de datos.
      */
-    protected static Connection getConexion(int net) {
-        Connection conn = null;
+    public Connection getConexion() {
+        
         
         try {
             Class.forName(driver);
-            if (net==0) {
-                conn = DriverManager.getConnection(urlLocal,usuario,password);
-            }else if (net==1) {
-                conn = DriverManager.getConnection(urlInternet,usuario,password);
-            }else {
-                conn = DriverManager.getConnection(urlInternetDDNS,usuario,password);
-            }
-            
+            conn = DriverManager.getConnection(url,usuario,password);
+        
         } catch (ClassNotFoundException ex) {
             System.out.println("Error cargando Driver: " + ex.getMessage());
         }catch (SQLException ex) {
@@ -53,5 +43,13 @@ public class ConexionBD {
         
         return conn;
     } 
+    
+    public void cerrarConexion() {
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println("Error cerrando conexión de la BD\n" + ex.getMessage());
+        }
+    }
     
 }
